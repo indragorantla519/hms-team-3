@@ -2,11 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RVM Master Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
+    .container {
+  display: flex;
+  flex-direction: column; /* Stack items on mobile */
+  gap: 10px;
+}
+ 
+@media(min-width: 768px) {
+  .container {
+    flex-direction: row; /* Side by side on tablets/desktop */
+  }
+}
+ 
+ 
+Make Images and Videos Responsive
+img, video {
+  max-width: 100%;
+  height: auto;
+}
     body { margin:0; font-family:Arial,sans-serif; background:#f4f6fb; }
     .overlay { position:fixed; top:0; left:50%; transform:translateX(-50%);
       width:100%; height:45%; background:rgba(44,62,117,0.95);
@@ -1724,4 +1742,5 @@ document.getElementById('globalSearch').addEventListener('input', (e)=> {
   }
 </script>
 </body>
+
 </html>
