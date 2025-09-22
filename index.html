@@ -8,42 +8,138 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
     .container {
-  display: flex;
-  flex-direction: column; /* Stack items on mobile */
-  gap: 10px;
-}
- 
-@media(min-width: 768px) {
-  .container {
-    flex-direction: row; /* Side by side on tablets/desktop */
-  }
-}
- 
- 
-Make Images and Videos Responsive
-img, video {
-  max-width: 100%;
-  height: auto;
-}
-    body { margin:0; font-family:Arial,sans-serif; background:#f4f6fb; }
-    .overlay { position:fixed; top:0; left:50%; transform:translateX(-50%);
-      width:100%; height:45%; background:rgba(44,62,117,0.95);
-      clip-path: ellipse(70% 100% at 50% 0%); z-index:-1;
-      display:flex; justify-content:center; align-items:center; }
-    .overlay img { max-height:100%; max-width:100%; opacity:0.15; }
-    .login-container { background:#fff; padding:40px; border-radius:8px; width:380px; box-shadow:0 4px 20px rgba(0,0,0,0.2); text-align:center; position:relative; z-index:1; }
-    .login-container img { width:100px; margin-bottom:10px; }
-    .login-container h2 { font-size:20px; margin:10px 0; color:#2c3e75; }
-    .login-container p { font-size:14px; color:#666; margin-bottom:20px; }
-    .login-container label { display:block; text-align:left; font-size:14px; margin-bottom:5px; color:#333; }
-    .login-container input[type="text"], .login-container input[type="password"] { width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; margin-bottom:15px; font-size:14px; }
-    .remember-me { display:flex; align-items:center; margin-bottom:20px; font-size:14px; color:#444; }
-    .remember-me input { margin-right:8px; }
-    .login-container button { width:100%; padding:12px; border:none; border-radius:5px; background:#009688; color:white; font-size:16px; cursor:pointer; }
-    .login-container button:hover { background:#00796b; }
-    footer { text-align:center; font-size:13px; }
-    .table-scroll { max-height:400px; overflow-y:auto; }
-    #new-percel-modal .modal-content, #general-settings-modal .modal-content { max-height: 90vh; overflow-y: auto; }
+      display: flex;
+      flex-direction: column; /* Stack items on mobile */
+      gap: 10px;
+    }
+    
+    @media(min-width: 768px) {
+      .container {
+        flex-direction: row; /* Side by side on tablets/desktop */
+      }
+    }
+    
+    img, video {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    body { 
+      margin:0; 
+      font-family:Arial,sans-serif; 
+      background:#f4f6fb; 
+    }
+    
+    .overlay { 
+      position:fixed; 
+      top:0; 
+      left:50%; 
+      transform:translateX(-50%);
+      width:100%; 
+      height:45%; 
+      background:rgba(44,62,117,0.95);
+      clip-path: ellipse(70% 100% at 50% 0%); 
+      z-index:-1;
+      display:flex; 
+      justify-content:center; 
+      align-items:center; 
+    }
+    
+    .overlay img { 
+      max-height:100%; 
+      max-width:100%; 
+      opacity:0.15; 
+    }
+    
+    .login-container { 
+      background:#fff; 
+      padding:40px; 
+      border-radius:8px; 
+      width:380px; 
+      box-shadow:0 4px 20px rgba(0,0,0,0.2); 
+      text-align:center; 
+      position:relative; 
+      z-index:1; 
+    }
+    
+    .login-container img { 
+      width:100px; 
+      margin-bottom:10px; 
+    }
+    
+    .login-container h2 { 
+      font-size:20px; 
+      margin:10px 0; 
+      color:#2c3e75; 
+    }
+    
+    .login-container p { 
+      font-size:14px; 
+      color:#666; 
+      margin-bottom:20px; 
+    }
+    
+    .login-container label { 
+      display:block; 
+      text-align:left; 
+      font-size:14px; 
+      margin-bottom:5px; 
+      color:#333; 
+    }
+    
+    .login-container input[type="text"], 
+    .login-container input[type="password"] { 
+      width:100%; 
+      padding:10px; 
+      border:1px solid #ddd; 
+      border-radius:5px; 
+      margin-bottom:15px; 
+      font-size:14px; 
+    }
+    
+    .remember-me { 
+      display:flex; 
+      align-items:center; 
+      margin-bottom:20px; 
+      font-size:14px; 
+      color:#444; 
+    }
+    
+    .remember-me input { 
+      margin-right:8px; 
+    }
+    
+    .login-container button { 
+      width:100%; 
+      padding:12px; 
+      border:none; 
+      border-radius:5px; 
+      background:#009688; 
+      color:white; 
+      font-size:16px; 
+      cursor:pointer; 
+    }
+    
+    .login-container button:hover { 
+      background:#00796b; 
+    }
+    
+    footer { 
+      text-align:center; 
+      font-size:13px; 
+    }
+    
+    .table-scroll { 
+      max-height:400px; 
+      overflow-y:auto; 
+    }
+    
+    #new-percel-modal .modal-content, 
+    #general-settings-modal .modal-content { 
+      max-height: 90vh; 
+      overflow-y: auto; 
+    }
+    
     .help-card {
       border: 1px solid #ddd;
       border-radius: 12px;
@@ -53,28 +149,37 @@ img, video {
       cursor: pointer;
       background: #f8f9fa;
     }
+    
     .help-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
+    
     .help-card i {
       font-size: 2rem;
       margin-bottom: 10px;
       color: #0d6efd;
     }
+    
     .hidden {
       display: none;
     }
-    header, footer { text-align: center; }
+    
+    header, footer { 
+      text-align: center; 
+    }
+    
     /* Add table scrolling for the table container */
     .table-scroll {
         max-height: 400px;
         overflow-y: auto;
     }
+    
     #new-percel-modal .modal-content {
       max-height: 90vh;
       overflow-y: auto;
     }
+    
     /* Dashboard cards */
     .dashboard-card {
       border-radius: 12px;
@@ -84,84 +189,172 @@ img, video {
       transition: all 0.3s;
       background: white;
     }
+    
     .dashboard-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
+    
     .dashboard-card i {
       font-size: 2.5rem;
       margin-bottom: 15px;
     }
+    
     /* Animation for modal */
-    @keyframes fadeInDown { from { opacity:0; transform: translateY(-20px);} to {opacity:1; transform: translateY(0);} }
-    .animate-fade-in-down { animation: fadeInDown 0.3s ease-out; }
+    @keyframes fadeInDown { 
+      from { 
+        opacity:0; 
+        transform: translateY(-20px);
+      } 
+      to {
+        opacity:1; 
+        transform: translateY(0);
+      } 
+    }
+    
+    .animate-fade-in-down { 
+      animation: fadeInDown 0.3s ease-out; 
+    }
+    
+    /* Updated Sidebar Colors */
+    aside {
+      background-color: rgb(48, 72, 156) !important; /* RVM Blue */
+      overflow-y: auto; /* Enable vertical scrolling */
+      height: 100vh; /* Full height */
+    }
+
+    /* Sidebar scrollbar styling */
+    aside::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    aside::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    aside::-webkit-scrollbar-thumb {
+      background: rgba(11, 151, 104, 0.7);
+      border-radius: 4px;
+    }
+
+    aside::-webkit-scrollbar-thumb:hover {
+      background: rgba(11, 151, 104, 1);
+    }
+
+    /* Sidebar hover effects */
+    aside li:hover {
+      background-color: rgba(11, 151, 104, 0.7) !important; /* RVM Green with transparency */
+    }
+
+    /* Active sidebar item */
+    aside li.active {
+      background-color: rgb(11, 151, 104) !important; /* RVM Green */
+    }
+
+    /* Button color classes */
+    .btn-primary {
+      background-color: rgb(48, 72, 156) !important; /* RVM Blue */
+      border-color: rgb(48, 72, 156) !important;
+    }
+
+    .btn-danger {
+      background-color: #dc3545 !important; /* Standard red */
+      border-color: #dc3545 !important;
+    }
+
+    /* Button with icons */
+    .btn-with-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     /* Dark mode styles */
     body.dark {
       background-color: #1e40af;
       color: #f3f4f6;
     }
+    
     body.dark .login-container {
       background-color: #374151;
       color: #f3f4f6;
     }
+    
     body.dark .login-container label,
     body.dark .login-container p {
       color: #f3f4f6;
     }
+    
     body.dark .login-container input {
       background-color: #4b5563;
       color: #f3f4f6;
       border-color: #6b7280;
     }
+    
     body.dark aside {
-      background-color: #1e40af;
+      background-color: rgb(48, 72, 156) !important; /* Keep RVM Blue in dark mode */
     }
+    
     body.dark .navbar {
       background-color: #1f2937;
       color: #f3f4f6;
     }
+    
     body.dark .bg-white {
       background-color: #374151 !important;
       color: #f3f4f6;
     }
+    
     body.dark .dashboard-card {
       background-color: #4b5563;
       color: #f3f4f6;
     }
+    
     body.dark .help-card {
       background-color: #4b5563;
       color: #f3f4f6;
       border-color: #6b7280;
     }
+    
     body.dark .table-scroll {
       background-color: #374151;
       color: #f3f4f6;
     }
+    
     body.dark table {
       border-color: #6b7280;
     }
+    
     body.dark th {
       background-color: #1e40af !important;
     }
+    
     body.dark td {
       border-color: #6b7280;
     }
-    body.dark input, body.dark select {
+    
+    body.dark input, 
+    body.dark select {
       background-color: #4b5563;
       color: #f3f4f6;
       border-color: #6b7280;
     }
+    
     .logo {
       display: block;
       margin: 0 auto;   /* centers horizontally */
       max-width: 150px; /* adjust size */
       height: auto;
     }
+    
     /* Profile dropdown styles */
     .profile-dropdown {
       position: relative;
       display: inline-block;
     }
+    
     .dropdown-content {
       display: none;
       position: absolute;
@@ -174,6 +367,7 @@ img, video {
       border-radius: 4px;
       overflow: hidden;
     }
+    
     .dropdown-content a {
       color: black;
       padding: 12px 16px;
@@ -181,22 +375,28 @@ img, video {
       display: block;
       text-align: left;
     }
+    
     .dropdown-content a:hover {
       background-color: #f1f1f1;
     }
+    
     .show {
       display: block;
     }
+    
     body.dark .dropdown-content {
       background-color: #374151;
       color: #f3f4f6;
     }
+    
     body.dark .dropdown-content a {
       color: #f3f4f6;
     }
+    
     body.dark .dropdown-content a:hover {
       background-color: #4b5563;
     }
+    
     /* Status badges */
     .status-delivered { background-color: #10B981; color: white; }
     .status-transit { background-color: #F59E0B; color: white; }
@@ -238,27 +438,45 @@ img, video {
 <!-- MAIN WRAPPER (SIDEBAR + CONTENT) -->
 <div id="main-wrapper" class="hidden flex h-screen">
   <!-- SIDEBAR -->
-  <aside class="w-64 bg-gray-900 text-white flex flex-col p-4">
-    <h1 class="text-xl font-bold mb-6 text-center">RVM</h1>
-    <ul class="space-y-2">
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-bullhorn mr-3"></i>Campaigns</li>
-      <li class="mt-4 text-xs uppercase font-semibold text-gray-500">Vendor</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-user mr-3"></i>Vendor</li>
-      <li class="mt-4 text-xs uppercase font-semibold text-gray-500">MRD</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-file-medical mr-3"></i>MRD</li>
-      <li class="mt-4 text-xs uppercase font-semibold text-gray-500">Finance & Accounts</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-tachometer-alt mr-3"></i>Dashboard</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-file-invoice mr-3"></i>Invoices</li>
-      <li class="mt-4 text-xs uppercase font-semibold text-gray-500">Help Desk</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-calendar-check mr-3"></i>Appointments</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-tasks mr-3"></i>Follow Up's</li>
-      <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-headset mr-3"></i>Service Desk</li>
-      <li class="mt-4 text-xs uppercase font-semibold text-gray-500">Settings</li>
-      <li id="settingsBtn" class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer">
-        <i class="fas fa-cog mr-3"></i> General Settings
-      </li>
-    </ul>
-    <div class="mt-auto p-4 text-sm">
+  <aside class="w-64 text-white flex flex-col">
+    <div class="p-4 sticky top-0 bg-rvm-blue z-10">
+      <h1 class="text-xl font-bold text-center">RVM</h1>
+    </div>
+    <div class="flex-1 overflow-y-auto">
+      <ul class="space-y-2 p-4">
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-bullhorn mr-3"></i>Campaigns</li>
+        <li class="mt-4 text-xs uppercase font-semibold text-gray-300">Vendor</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-user mr-3"></i>Vendor</li>
+        <li class="mt-4 text-xs uppercase font-semibold text-gray-300">MRD</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-file-medical mr-3"></i>MRD</li>
+        <li class="mt-4 text-xs uppercase font-semibold text-gray-300">Finance & Accounts</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-tachometer-alt mr-3"></i>Dashboard</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-file-invoice mr-3"></i>Invoices</li>
+        <li class="mt-4 text-xs uppercase font-semibold text-gray-300">Help Desk</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-calendar-check mr-3"></i>Appointments</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-tasks mr-3"></i>Follow Up's</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-headset mr-3"></i>Service Desk</li>
+        <li class="mt-4 text-xs uppercase font-semibold text-gray-300">Settings</li>
+        <li id="settingsBtn" class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer">
+          <i class="fas fa-cog mr-3"></i> General Settings
+        </li>
+        <!-- Additional menu items to demonstrate scrolling -->
+        <li class="mt-4 text-xs uppercase font-semibold text-gray-300">Additional Features</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-user-injured mr-3"></i>Patient Records</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-procedures mr-3"></i>Room Management</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-pills mr-3"></i>Pharmacy</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-flask mr-3"></i>Laboratory</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-x-ray mr-3"></i>Radiology</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-ambulance mr-3"></i>Emergency</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-user-nurse mr-3"></i>Nursing Station</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-file-prescription mr-3"></i>Prescriptions</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-chart-line mr-3"></i>Reports</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-users mr-3"></i>Staff Management</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-calculator mr-3"></i>Billing</li>
+        <li class="flex items-center p-3 rounded-lg hover:bg-gray-800 cursor-pointer"><i class="fas fa-box mr-3"></i>Inventory</li>
+      </ul>
+    </div>
+    <div class="p-4 text-sm border-t border-gray-700 sticky bottom-0 bg-rvm-blue">
       <p>V.1.10-PULSE</p>
     </div>
   </aside>
@@ -391,41 +609,48 @@ img, video {
         © 2025 R.V.M Hospitals | Developed by Peramsons Software
       </footer>
     </div>
-    <!-- SETTINGS PAGE -->
-<div id="settings-page" class="hidden p-6">
-  <h3 class="text-xl font-semibold mb-6">Help Desk Dashboard</h3>
-  <div class="grid grid-cols-2 md:grid-cols-4">
-    <div id="purposeVisitBtn" class="help-card">
-      <i class="fas fa-truck"></i>
-      <p>Purpose Of Visit</p>
-    </div>
-    <div id="parcelTypeBtn" class="help-card">
-      <i class="fas fa-box"></i>
-      <p>Parcel Type</p>
-    </div>
-    <div id="grievanceBtn" class="help-card">
-      <i class="fas fa-user-md"></i>
-      <p>Grievance</p>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="mt-8 text-center text-gray-500 text-sm border-t pt-4">
-    © 2025 R.V.M Hospitals | Developed by Peramsons Software
-  </footer>
-</div>
-
     
+    <!-- SETTINGS PAGE -->
+    <div id="settings-page" class="hidden p-6">
+      <h3 class="text-xl font-semibold mb-6">Help Desk Dashboard</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4">
+        <div id="purposeVisitBtn" class="help-card">
+          <i class="fas fa-truck"></i>
+          <p>Purpose Of Visit</p>
+        </div>
+        <div id="parcelTypeBtn" class="help-card">
+          <i class="fas fa-box"></i>
+          <p>Parcel Type</p>
+        </div>
+        <div id="grievanceBtn" class="help-card">
+          <i class="fas fa-user-md"></i>
+          <p>Grievance</p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="mt-8 text-center text-gray-500 text-sm border-t pt-4">
+        © 2025 R.V.M Hospitals | Developed by Peramsons Software
+      </footer>
+    </div>
 
     <!-- VISITOR MODULE PAGE -->
     <div id="visitor-page" class="hidden flex flex-col flex-1 overflow-y: auto;">
       <!-- Actions -->
       <div class="p-4 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex gap-2">
-          <button id="createVisitorBtn" class="bg-blue-900 text-white px-3 py-2 rounded">Create Visitor</button>
-          <button id="importVisitorBtn" class="bg-green-600 text-white px-3 py-2 rounded">Import</button>
-          <button id="exportVisitorBtn" class="bg-blue-600 text-white px-3 py-2 rounded">Export</button>
-          <button id="visitorInfoBtn" class="bg-purple-600 text-white px-3 py-2 rounded">Visitor Information</button>
+          <button id="createVisitorBtn" class="btn btn-primary text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-user-plus"></i> Create Visitor
+          </button>
+          <button id="importVisitorBtn" class="bg-green-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-file-import"></i> Import
+          </button>
+          <button id="exportVisitorBtn" class="bg-blue-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-file-export"></i> Export
+          </button>
+          <button id="visitorInfoBtn" class="bg-purple-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-info-circle"></i> Visitor Information
+          </button>
         </div>
         <input type="text" id="searchVisitorInput" placeholder="Search..." class="border p-2 rounded w-full md:w-64"/>
         <input type="file" id="importVisitorFile" class="hidden"/>
@@ -469,9 +694,15 @@ img, video {
       <!-- Actions -->
       <div class="p-4 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex gap-2">
-          <button id="createParcelBtn" class="bg-blue-900 text-white px-3 py-2 rounded">Create Parcel</button>
-          <button id="importParcelBtn" class="bg-green-600 text-white px-3 py-2 rounded">Import</button>
-          <button id="exportParcelBtn" class="bg-blue-600 text-white px-3 py-2 rounded">Export</button>
+          <button id="createParcelBtn" class="btn btn-primary text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-plus-circle"></i> Create Parcel
+          </button>
+          <button id="importParcelBtn" class="bg-green-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-file-import"></i> Import
+          </button>
+          <button id="exportParcelBtn" class="bg-blue-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-file-export"></i> Export
+          </button>
         </div>
         <input type="text" id="searchParcelInput" placeholder="Search..." class="border p-2 rounded w-full md:w-64"/>
         <input type="file" id="importParcelFile" class="hidden"/>
@@ -517,9 +748,15 @@ img, video {
       <!-- Actions -->
       <div class="p-4 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex gap-2">
-          <button id="createGrievanceBtn" class="bg-blue-900 text-white px-3 py-2 rounded">Create Grievance</button>
-          <button id="importGrievanceBtn" class="bg-green-600 text-white px-3 py-2 rounded">Import</button>
-          <button id="exportGrievanceBtn" class="bg-blue-600 text-white px-3 py-2 rounded">Export</button>
+          <button id="createGrievanceBtn" class="btn btn-primary text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-flag"></i> Create Grievance
+          </button>
+          <button id="importGrievanceBtn" class="bg-green-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-file-import"></i> Import
+          </button>
+          <button id="exportGrievanceBtn" class="bg-blue-600 text-white px-3 py-2 rounded btn-with-icon">
+            <i class="fas fa-file-export"></i> Export
+          </button>
         </div>
         <input type="text" id="searchGrievanceInput" placeholder="Search..." class="border p-2 rounded w-full md:w-64"/>
         <input type="file" id="importGrievanceFile" class="hidden"/>
@@ -594,7 +831,9 @@ img, video {
         <input type="number" id="modalVisitorCount" class="w-full border p-2 rounded" required>
       </div>
       <div class="col-span-2 flex justify-end space-x-2">
-        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Create</button>
+        <button type="submit" class="btn btn-primary text-white px-4 py-2 rounded btn-with-icon">
+          <i class="fas fa-user-plus"></i> Create
+        </button>
         <button type="button" id="cancelVisitorModal" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
       </div>
     </form>
@@ -656,7 +895,9 @@ img, video {
         </select>
       </div>
       <div class="col-span-2 flex justify-end space-x-2">
-        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Create</button>
+        <button type="submit" class="btn btn-primary text-white px-4 py-2 rounded btn-with-icon">
+          <i class="fas fa-plus-circle"></i> Create
+        </button>
         <button type="button" id="cancelParcelModal" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
       </div>
     </form>
@@ -724,7 +965,9 @@ img, video {
         <textarea id="modalGrievanceDescription" class="w-full border p-2 rounded" rows="3"></textarea>
       </div>
       <div class="col-span-2 flex justify-end space-x-2">
-        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Create</button>
+        <button type="submit" class="btn btn-primary text-white px-4 py-2 rounded btn-with-icon">
+          <i class="fas fa-flag"></i> Create
+        </button>
         <button type="button" id="cancelGrievanceModal" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
       </div>
     </form>
@@ -1019,7 +1262,7 @@ img, video {
         <td class="py-3 px-4 text-center flex justify-center space-x-2">
           <button class="bg-blue-900 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors view-visitor-btn" data-id="${item.id}"><i class="fas fa-eye"></i></button>
           <button class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-400 transition-colors edit-visitor-btn" data-id="${item.id}"><i class="fas fa-pencil-alt"></i></button>
-          <button class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-400 transition-colors delete-visitor-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger text-white p-2 rounded-lg hover:bg-red-400 transition-colors delete-visitor-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
         </td>`;
       visitorBody.appendChild(tr);
     });
@@ -1081,7 +1324,7 @@ img, video {
         <td class="py-3 px-4 text-center flex justify-center space-x-2">
           <button class="bg-blue-900 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors view-parcel-btn" data-id="${item.id}"><i class="fas fa-eye"></i></button>
           <button class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-400 transition-colors edit-parcel-btn" data-id="${item.id}"><i class="fas fa-pencil-alt"></i></button>
-          <button class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-400 transition-colors delete-parcel-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger text-white p-2 rounded-lg hover:bg-red-400 transition-colors delete-parcel-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
         </td>`;
       parcelBody.appendChild(tr);
     });
@@ -1142,7 +1385,7 @@ img, video {
         <td class="py-3 px-4 text-center flex justify-center space-x-2">
           <button class="bg-blue-900 text-white p-2 rounded-lg hover:bg-blue-800 transition-colors view-grievance-btn" data-id="${item.id}"><i class="fas fa-eye"></i></button>
           <button class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-400 transition-colors edit-grievance-btn" data-id="${item.id}"><i class="fas fa-pencil-alt"></i></button>
-          <button class="bg-red-500 text-white p-2 rounded-lg hover:bg-red-400 transition-colors delete-grievance-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+          <button class="btn btn-danger text-white p-2 rounded-lg hover:bg-red-400 transition-colors delete-grievance-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
         </td>`;
       grievanceBody.appendChild(tr);
     });
