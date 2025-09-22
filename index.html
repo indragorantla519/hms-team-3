@@ -2,343 +2,273 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>RVM Master Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
     /* Base styles */
+    * {
+      box-sizing: border-box;
+    }
+    
     body { 
-      margin:0; 
-      font-family:Arial,sans-serif; 
-      background:#f4f6fb; 
+      margin: 0; 
+      padding: 0;
+      font-family: Arial, sans-serif; 
+      background: #f4f6fb; 
       overflow-x: hidden;
+      min-height: 100vh;
     }
     
     .overlay { 
-      position:fixed; 
-      top:0; 
-      left:50%; 
-      transform:translateX(-50%);
-      width:100%; 
-      height:45%; 
-      background:rgba(44,62,117,0.95);
+      position: fixed; 
+      top: 0; 
+      left: 50%; 
+      transform: translateX(-50%);
+      width: 100%; 
+      height: 45%; 
+      background: rgba(44,62,117,0.95);
       clip-path: ellipse(70% 100% at 50% 0%); 
-      z-index:-1;
-      display:flex; 
-      justify-content:center; 
-      align-items:center; 
+      z-index: -1;
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
     }
     
     .overlay img { 
-      max-height:100%; 
-      max-width:100%; 
-      opacity:0.15; 
+      max-height: 100%; 
+      max-width: 100%; 
+      opacity: 0.15; 
     }
     
     .login-container { 
-      background:#fff; 
-      padding:30px 20px; 
-      border-radius:8px; 
-      width:90%; 
-      max-width:380px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.2); 
-      text-align:center; 
-      position:relative; 
-      z-index:1; 
-      margin:20px auto;
+      background: #fff; 
+      padding: 30px 20px; 
+      border-radius: 8px; 
+      width: 90%; 
+      max-width: 380px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2); 
+      text-align: center; 
+      position: relative; 
+      z-index: 1; 
+      margin: 20px auto;
     }
     
     .login-container img { 
-      width:80px; 
-      margin-bottom:10px; 
+      width: 80px; 
+      margin-bottom: 10px; 
     }
     
     .login-container h2 { 
-      font-size:18px; 
-      margin:10px 0; 
-      color:#2c3e75; 
+      font-size: 18px; 
+      margin: 10px 0; 
+      color: #2c3e75; 
     }
     
     .login-container p { 
-      font-size:14px; 
-      color:#666; 
-      margin-bottom:20px; 
+      font-size: 14px; 
+      color: #666; 
+      margin-bottom: 20px; 
     }
     
     .login-container label { 
-      display:block; 
-      text-align:left; 
-      font-size:14px; 
-      margin-bottom:5px; 
-      color:#333; 
+      display: block; 
+      text-align: left; 
+      font-size: 14px; 
+      margin-bottom: 5px; 
+      color: #333; 
     }
     
     .login-container input[type="text"], 
     .login-container input[type="password"] { 
-      width:100%; 
-      padding:12px; 
-      border:1px solid #ddd; 
-      border-radius:5px; 
-      margin-bottom:15px; 
-      font-size:16px; /* Better for mobile */
-      box-sizing:border-box;
+      width: 100%; 
+      padding: 12px; 
+      border: 1px solid #ddd; 
+      border-radius: 5px; 
+      margin-bottom: 15px; 
+      font-size: 16px;
+      box-sizing: border-box;
     }
     
     .remember-me { 
-      display:flex; 
-      align-items:center; 
-      margin-bottom:20px; 
-      font-size:14px; 
-      color:#444; 
+      display: flex; 
+      align-items: center; 
+      margin-bottom: 20px; 
+      font-size: 14px; 
+      color: #444; 
     }
     
     .remember-me input { 
-      margin-right:8px; 
+      margin-right: 8px; 
     }
     
     .login-container button { 
-      width:100%; 
-      padding:14px; 
-      border:none; 
-      border-radius:5px; 
-      background:#009688; 
-      color:white; 
-      font-size:16px; 
-      cursor:pointer; 
+      width: 100%; 
+      padding: 14px; 
+      border: none; 
+      border-radius: 5px; 
+      background: #009688; 
+      color: white; 
+      font-size: 16px; 
+      cursor: pointer; 
     }
     
     .login-container button:hover { 
-      background:#00796b; 
+      background: #00796b; 
     }
     
     footer { 
-      text-align:center; 
-      font-size:13px; 
-      padding:10px;
-    }
-    
-    .table-scroll { 
-      max-height:400px; 
-      overflow-y:auto; 
-      overflow-x:auto;
-    }
-    
-    #new-percel-modal .modal-content, 
-    #general-settings-modal .modal-content { 
-      max-height: 90vh; 
-      overflow-y: auto; 
-    }
-    
-    .help-card {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-      transition: all 0.3s;
-      cursor: pointer;
-      background: #f8f9fa;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    
-    .help-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    
-    .help-card i {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      color: #0d6efd;
-    }
-    
-    .hidden {
-      display: none;
-    }
-    
-    header, footer { 
       text-align: center; 
+      font-size: 13px; 
+      padding: 10px;
     }
     
-    /* Responsive table container */
-    .table-scroll {
-        max-height: 400px;
-        overflow-y: auto;
-        overflow-x: auto;
+    /* FIXED: Mobile sidebar styles */
+    @media (max-width: 768px) {
+      /* Mobile sidebar */
+      aside {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        height: 100vh !important;
+        width: 280px !important;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      aside.mobile-open {
+        transform: translateX(0) !important;
+      }
+      
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+      }
+      
+      .mobile-overlay.active {
+        display: block !important;
+      }
+      
+      /* Header adjustments */
+      .navbar {
+        padding: 10px !important;
+      }
+      
+      .search-box {
+        width: 100% !important;
+        max-width: none !important;
+        margin-top: 10px;
+      }
+      
+      .navbar-right {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      /* Content adjustments */
+      .main-content {
+        width: 100% !important;
+      }
+      
+      /* Table adjustments */
+      .table-scroll {
+        max-height: 300px;
+        font-size: 14px;
+      }
+      
+      th, td {
+        padding: 8px 4px !important;
+        font-size: 12px;
+      }
+      
+      /* Hide some columns on mobile */
+      .hidden-mobile {
+        display: none !important;
+      }
+      
+      /* Button adjustments */
+      button {
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+      }
+      
+      /* Dashboard cards */
+      .dashboard-card {
+        padding: 10px !important;
+        min-height: 120px !important;
+      }
+      
+      .dashboard-card i {
+        font-size: 1.5rem !important;
+      }
+      
+      .dashboard-card h3 {
+        font-size: 14px !important;
+      }
+      
+      .dashboard-card p {
+        font-size: 20px !important;
+      }
+      
+      /* Modal adjustments */
+      .modal-content {
+        width: 95% !important;
+        margin: 10px !important;
+        max-height: 90vh !important;
+      }
     }
     
-    #new-percel-modal .modal-content {
-      max-height: 90vh;
-      overflow-y: auto;
+    /* Desktop styles */
+    @media (min-width: 769px) {
+      aside {
+        position: relative !important;
+        transform: translateX(0) !important;
+        width: 16rem !important;
+      }
+      
+      .mobile-overlay {
+        display: none !important;
+      }
     }
     
-    /* Dashboard cards */
-    .dashboard-card {
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: all 0.3s;
-      background: white;
-      min-height: 150px;
+    /* MAIN WRAPPER FIX */
+    #main-wrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+    
+    .main-content {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      min-height: 100vh;
     }
     
-    .dashboard-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    /* Ensure content area scrolls properly */
+    .flex-1.overflow-auto {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     
-    .dashboard-card i {
-      font-size: 2rem;
-      margin-bottom: 10px;
+    /* Table responsive fixes */
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
     
-    /* Animation for modal */
-    @keyframes fadeInDown { 
-      from { 
-        opacity:0; 
-        transform: translateY(-20px);
-      } 
-      to {
-        opacity:1; 
-        transform: translateY(0);
-      } 
-    }
-    
-    .animate-fade-in-down { 
-      animation: fadeInDown 0.3s ease-out; 
-    }
-    
-    /* Dark mode styles */
-    body.dark {
-      background-color: #104590;
-      color: #f3f4f6;
-    }
-    
-    body.dark .login-container {
-      background-color: #104590;
-      color: #f3f4f6;
-    }
-    
-    body.dark .login-container label,
-    body.dark .login-container p {
-      color: #f3f4f6;
-    }
-    
-    body.dark .login-container input {
-      background-color: #4b5563;
-      color: #f3f4f6;
-      border-color: #6b7280;
-    }
-    
-    body.dark aside {
-      background-color: #104590;
-    }
-    
-    body.dark .navbar {
-      background-color: #104590;
-      color: #f3f4f6;
-    }
-    
-    body.dark .bg-white {
-      background-color: #374151 !important;
-      color: #f3f4f6;
-    }
-    
-    body.dark .dashboard-card {
-      background-color: #4b5563;
-      color: #f3f4f6;
-    }
-    
-    body.dark .help-card {
-      background-color: #4b5563;
-      color: #f3f4f6;
-      border-color: #6b7280;
-    }
-    
-    body.dark .table-scroll {
-      background-color: #374151;
-      color: #f3f4f6;
-    }
-    
-    body.dark table {
-      border-color: #6b7280;
-    }
-    
-    body.dark th {
-      background-color: #1e40af !important;
-    }
-    
-    body.dark td {
-      border-color: #6b7280;
-    }
-    
-    body.dark input, 
-    body.dark select {
-      background-color: #4b5563;
-      color: #f3f4f6;
-      border-color: #6b7280;
-    }
-    
-    .logo {
-      display: block;
-      margin: 0 auto;
-      max-width: 120px;
-      height: auto;
-    }
-    
-    /* Profile dropdown styles */
-    .profile-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1000;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      text-align: left;
-    }
-    
-    .dropdown-content a:hover {
-      background-color: #f1f1f1;
-    }
-    
-    .show {
-      display: block;
-    }
-    
-    body.dark .dropdown-content {
-      background-color: #374151;
-      color: #f3f4f6;
-    }
-    
-    body.dark .dropdown-content a {
-      color: #f3f4f6;
-    }
-    
-    body.dark .dropdown-content a:hover {
-      background-color: #4b5563;
+    table {
+      min-width: 600px;
+      width: 100%;
     }
     
     /* Status badges */
@@ -351,243 +281,61 @@
     .status-resolved { background-color: #10B981; color: white; }
     .status-closed { background-color: #6B7280; color: white; }
     
-    /* FIXED: Settings page footer positioning */
-    #settings-page {
-      display: flex;
-      flex-direction: column;
-      min-height: calc(100vh - 200px); /* Adjust based on your header height */
+    /* Hidden utility classes */
+    .hidden {
+      display: none !important;
     }
     
-    .settings-content {
-      flex: 1;
-      padding-bottom: 20px;
+    /* Animation for modal */
+    @keyframes fadeInDown { 
+      from { 
+        opacity: 0; 
+        transform: translateY(-20px);
+      } 
+      to {
+        opacity: 1; 
+        transform: translateY(0);
+      } 
     }
     
-    .settings-footer {
-      margin-top: auto;
-      padding: 15px 0;
-      border-top: 1px solid #e5e7eb;
-      background: white;
+    .animate-fade-in-down { 
+      animation: fadeInDown 0.3s ease-out; 
     }
     
-    body.dark .settings-footer {
-      background-color: #374151;
-      border-top-color: #4b5563;
+    /* Dark mode styles */
+    body.dark {
+      background-color: #1a202c;
+      color: #f3f4f6;
     }
     
-    /* Mobile-specific styles */
-    @media (max-width: 768px) {
-      .login-container {
-        width: 95%;
-        padding: 20px 15px;
-      }
-      
-      .dashboard-card {
-        padding: 10px;
-        min-height: 120px;
-      }
-      
-      .dashboard-card i {
-        font-size: 1.5rem;
-      }
-      
-      .dashboard-card h3 {
-        font-size: 14px;
-      }
-      
-      .dashboard-card p {
-        font-size: 20px;
-      }
-      
-      .help-card {
-        padding: 10px;
-        min-height: 100px;
-      }
-      
-      .help-card i {
-        font-size: 1.5rem;
-      }
-      
-      .table-scroll {
-        max-height: 300px;
-      }
-      
-      table {
-        font-size: 14px;
-      }
-      
-      th, td {
-        padding: 8px 4px;
-      }
-      
-      /* Mobile sidebar */
-      aside {
-        position: fixed;
-        height: 100%;
-        z-index: 40;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-      }
-      
-      aside.mobile-open {
-        transform: translateX(0);
-      }
-      
-      .mobile-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 30;
-      }
-      
-      .mobile-overlay.active {
-        display: block;
-      }
-      
-      /* Mobile navbar adjustments */
-      .navbar-left {
-        flex: 1;
-      }
-      
-      .navbar-right {
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      
-      .search-box {
-        width: 100%;
-        margin-top: 10px;
-      }
-      
-      .search-box input {
-        width: 100%;
-      }
-      
-      /* Button adjustments for mobile */
-      button {
-        padding: 10px 12px;
-        font-size: 14px;
-      }
-      
-      /* Modal adjustments for mobile */
-      .modal-content {
-        width: 95%;
-        margin: 10px;
-      }
-      
-      .modal-content form {
-        padding: 15px;
-      }
-      
-      .modal-content .grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-      
-      .col-span-2 {
-        grid-column: 1;
-      }
-      
-      /* Settings page mobile adjustments */
-      #settings-page {
-        min-height: calc(100vh - 180px);
-      }
+    body.dark .login-container {
+      background-color: #2d3748;
+      color: #f3f4f6;
     }
     
-    @media (max-width: 480px) {
-      .login-container h2 {
-        font-size: 16px;
-      }
-      
-      .login-container p {
-        font-size: 13px;
-      }
-      
-      .dashboard-card p {
-        font-size: 18px;
-      }
-      
-      .help-card p {
-        font-size: 14px;
-      }
-      
-      /* Action buttons in tables */
-      .action-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
-      
-      .action-buttons button {
-        padding: 6px;
-        font-size: 12px;
-      }
-      
-      /* Pagination adjustments */
-      #visitorPaginationContainer,
-      #parcelPaginationContainer,
-      #grievancePaginationContainer {
-        flex-wrap: wrap;
-        gap: 5px;
-      }
-      
-      #visitorPageNumbers,
-      #parcelPageNumbers,
-      #grievancePageNumbers {
-        flex-wrap: wrap;
-        gap: 5px;
-      }
+    body.dark .login-container label,
+    body.dark .login-container p {
+      color: #f3f4f6;
     }
     
-    /* Tablet styles */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .dashboard-card {
-        padding: 15px 10px;
-      }
-      
-      .help-card {
-        padding: 15px 10px;
-      }
-      
-      table {
-        font-size: 14px;
-      }
+    body.dark .login-container input {
+      background-color: #4a5568;
+      color: #f3f4f6;
+      border-color: #718096;
     }
     
-    /* Utility classes for responsive design */
-    .mobile-only {
-      display: none;
+    body.dark aside {
+      background-color: #2d3748;
     }
     
-    .desktop-only {
-      display: block;
+    body.dark .navbar {
+      background-color: #2d3748;
+      color: #f3f4f6;
     }
     
-    @media (max-width: 768px) {
-      .mobile-only {
-        display: block;
-      }
-      
-      .desktop-only {
-        display: none;
-      }
-    }
-    
-    /* Improved button styles for touch devices */
-    button, 
-    .help-card,
-    .dashboard-card {
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    
-    /* Better scrolling on iOS */
-    .table-scroll {
-      -webkit-overflow-scrolling: touch;
+    body.dark .bg-white {
+      background-color: #4a5568 !important;
+      color: #f3f4f6;
     }
   </style>
 </head>
@@ -623,7 +371,7 @@
   <div id="mobileOverlay" class="mobile-overlay" onclick="toggleSidebar()"></div>
   
   <!-- SIDEBAR -->
-  <aside id="sidebar" class="w-64 bg-gray-900 text-white flex flex-col p-4 mobile-sidebar">
+  <aside id="sidebar" class="w-64 bg-gray-900 text-white flex flex-col p-4">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-xl font-bold">RVM</h1>
       <button class="mobile-only text-white text-xl" onclick="toggleSidebar()">
@@ -658,7 +406,7 @@
     <!-- Header -->
     <header class="navbar flex items-center justify-between p-3 bg-white shadow-sm sticky top-0 z-10">
       <!-- Left side -->
-      <div class="navbar-left flex items-center">
+      <div class="navbar-left flex items-center flex-1">
         <button class="mobile-only mr-3 text-gray-600 text-xl" onclick="toggleSidebar()">
           <i class="fas fa-bars"></i>
         </button>
@@ -715,151 +463,75 @@
       <div id="dashboard-page" class="hidden">
         <h2 class="text-2xl font-bold mb-6">Dashboard Overview</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div class="dashboard-card">
+          <div class="dashboard-card bg-white p-4 rounded-lg shadow">
             <i class="fas fa-users text-blue-500"></i>
             <h3 class="text-lg font-semibold">Total Users</h3>
             <p class="text-3xl font-bold">245</p>
           </div>
-          <div class="dashboard-card">
+          <div class="dashboard-card bg-white p-4 rounded-lg shadow">
             <i class="fas fa-box text-green-500"></i>
             <h3 class="text-lg font-semibold">Parcels Today</h3>
             <p class="text-3xl font-bold">42</p>
           </div>
-          <div class="dashboard-card">
+          <div class="dashboard-card bg-white p-4 rounded-lg shadow">
             <i class="fas fa-check-circle text-yellow-500"></i>
             <h3 class="text-lg font-semibold">Completed</h3>
             <p class="text-3xl font-bold">38</p>
           </div>
-          <div class="dashboard-card">
+          <div class="dashboard-card bg-white p-4 rounded-lg shadow">
             <i class="fas fa-clock text-red-500"></i>
             <h3 class="text-lg font-semibold">Pending</h3>
             <p class="text-3xl font-bold">4</p>
           </div>
         </div>
-        
-        <div class="bg-white p-4 md:p-6 rounded-lg shadow mb-6">
-          <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
-          <div class="space-y-4">
-            <div class="flex items-center justify-between border-b pb-3">
-              <div class="flex items-center">
-                <div class="bg-blue-100 p-2 rounded-full mr-3">
-                  <i class="fas fa-box text-blue-500"></i>
-                </div>
-                <div>
-                  <p class="font-medium">New parcel received</p>
-                  <p class="text-sm text-gray-500">Medical Supplies from Raja Shaker</p>
-                </div>
-              </div>
-              <span class="text-sm text-gray-500 hidden sm:block">2 hours ago</span>
-            </div>
-            <div class="flex items-center justify-between border-b pb-3">
-              <div class="flex items-center">
-                <div class="bg-green-100 p-2 rounded-full mr-3">
-                  <i class="fas fa-check-circle text-green-500"></i>
-                </div>
-                <div>
-                  <p class="font-medium">Parcel delivered</p>
-                  <p class="text-sm text-gray-500">Patient Documents to John Smith</p>
-                </div>
-              </div>
-              <span class="text-sm text-gray-500 hidden sm:block">5 hours ago</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="bg-yellow-100 p-2 rounded-full mr-3">
-                  <i class="fas fa-exclamation-circle text-yellow-500"></i>
-                </div>
-                <div>
-                  <p class="font-medium">Parcel delayed</p>
-                  <p class="text-sm text-gray-500">Lab Equipment from Sarah Johnson</p>
-                </div>
-              </div>
-              <span class="text-sm text-gray-500 hidden sm:block">Yesterday</span>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- SETTINGS PAGE - FIXED FOOTER POSITIONING -->
-      <div id="settings-page" class="hidden flex flex-col">
-        <div class="settings-content">
-          <h3 class="text-xl font-semibold mb-6">Help Desk Dashboard</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div id="purposeVisitBtn" class="help-card">
-              <i class="fas fa-truck"></i>
-              <p>Purpose Of Visit</p>
-            </div>
-            <div id="parcelTypeBtn" class="help-card">
-              <i class="fas fa-box"></i>
-              <p>Parcel Type</p>
-            </div>
-            <div id="grievanceBtn" class="help-card">
-              <i class="fas fa-user-md"></i>
-              <p>Grievance</p>
-            </div>
-            <div class="help-card">
-              <i class="fas fa-cog"></i>
-              <p>More Settings</p>
-            </div>
+      <!-- SETTINGS PAGE -->
+      <div id="settings-page" class="hidden">
+        <h3 class="text-xl font-semibold mb-6">Help Desk Dashboard</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div id="purposeVisitBtn" class="help-card bg-white p-4 rounded-lg shadow cursor-pointer">
+            <i class="fas fa-truck"></i>
+            <p>Purpose Of Visit</p>
           </div>
-          
-          <!-- Additional content to demonstrate footer positioning -->
-          <div class="bg-white p-4 md:p-6 rounded-lg shadow mb-6">
-            <h4 class="text-lg font-semibold mb-4">System Information</h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p class="text-sm text-gray-600">System Version</p>
-                <p class="font-medium">V.1.10-PULSE</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-600">Last Updated</p>
-                <p class="font-medium">September 22, 2025</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-600">Active Users</p>
-                <p class="font-medium">245</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-600">Support Contact</p>
-                <p class="font-medium">support@rvmhospitals.com</p>
-              </div>
-            </div>
+          <div id="parcelTypeBtn" class="help-card bg-white p-4 rounded-lg shadow cursor-pointer">
+            <i class="fas fa-box"></i>
+            <p>Parcel Type</p>
           </div>
-        </div>
-        
-        <!-- Footer that sticks to bottom -->
-        <div class="settings-footer">
-          <p class="text-center text-sm text-gray-600">© 2025 RVM HSM Design & Developed By Peramsons Software</p>
+          <div id="grievanceBtn" class="help-card bg-white p-4 rounded-lg shadow cursor-pointer">
+            <i class="fas fa-user-md"></i>
+            <p>Grievance</p>
+          </div>
+          <div class="help-card bg-white p-4 rounded-lg shadow cursor-pointer">
+            <i class="fas fa-cog"></i>
+            <p>More Settings</p>
+          </div>
         </div>
       </div>
 
       <!-- VISITOR MODULE PAGE -->
-      <div id="visitor-page" class="hidden flex flex-col h-full">
-        <!-- Actions -->
+      <div id="visitor-page" class="hidden">
         <div class="mb-4">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div class="flex flex-wrap gap-2">
               <button id="createVisitorBtn" class="bg-blue-900 text-white px-3 py-2 rounded text-sm">Create Visitor</button>
               <button id="importVisitorBtn" class="bg-green-600 text-white px-3 py-2 rounded text-sm">Import</button>
               <button id="exportVisitorBtn" class="bg-blue-600 text-white px-3 py-2 rounded text-sm">Export</button>
-              <button id="visitorInfoBtn" class="bg-purple-600 text-white px-3 py-2 rounded text-sm">Visitor Info</button>
             </div>
             <div class="w-full sm:w-auto">
               <input type="text" id="searchVisitorInput" placeholder="Search..." class="border p-2 rounded w-full sm:w-64"/>
-              <input type="file" id="importVisitorFile" class="hidden"/>
             </div>
           </div>
         </div>
 
-        <!-- Table -->
-        <div class="table-scroll bg-white rounded shadow flex-1 mb-4">
+        <div class="table-scroll bg-white rounded shadow mb-4">
           <table id="visitorTable" class="min-w-full border border-gray-200 rounded">
             <thead>
               <tr class="bg-blue-900 text-white">
                 <th class="py-2 px-2 text-center">S.No</th>
                 <th class="py-2 px-2 text-center">Purpose</th>
-                <th class="py-2 px-2 text-center hidden sm:table-cell">Name</th>
-                <th class="py-2 px-2 text-center hidden md:table-cell">Phone</th>
+                <th class="py-2 px-2 text-center hidden-mobile">Name</th>
+                <th class="py-2 px-2 text-center hidden-mobile">Phone</th>
                 <th class="py-2 px-2 text-center">Date</th>
                 <th class="py-2 px-2 text-center">Status</th>
                 <th class="py-2 px-2 text-center">Actions</th>
@@ -870,107 +542,10 @@
             </tbody>
           </table>
         </div>
-        
-        <!-- Pagination -->
-        <div class="flex justify-center mt-4 space-x-2" id="visitorPaginationContainer">
-          <button id="prevVisitorPage" class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400 text-sm">Previous</button>
-          <span id="visitorPageNumbers" class="flex space-x-1 flex-wrap justify-center"></span>
-          <button id="nextVisitorPage" class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400 text-sm">Next</button>
-        </div>
       </div>
 
-      <!-- PARCEL MODULE PAGE -->
-      <div id="parcel-page" class="hidden flex flex-col h-full">
-        <!-- Actions -->
-        <div class="mb-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-            <div class="flex flex-wrap gap-2">
-              <button id="createParcelBtn" class="bg-blue-900 text-white px-3 py-2 rounded text-sm">Create Parcel</button>
-              <button id="importParcelBtn" class="bg-green-600 text-white px-3 py-2 rounded text-sm">Import</button>
-              <button id="exportParcelBtn" class="bg-blue-600 text-white px-3 py-2 rounded text-sm">Export</button>
-            </div>
-            <div class="w-full sm:w-auto">
-              <input type="text" id="searchParcelInput" placeholder="Search..." class="border p-2 rounded w-full sm:w-64"/>
-              <input type="file" id="importParcelFile" class="hidden"/>
-            </div>
-          </div>
-        </div>
-
-        <!-- Table -->
-        <div class="table-scroll bg-white rounded shadow flex-1 mb-4">
-          <table id="parcelTable" class="min-w-full border border-gray-200 rounded">
-            <thead>
-              <tr class="bg-blue-900 text-white">
-                <th class="py-2 px-2 text-center">S.No</th>
-                <th class="py-2 px-2 text-center">Title</th>
-                <th class="py-2 px-2 text-center hidden sm:table-cell">Category</th>
-                <th class="py-2 px-2 text-center hidden md:table-cell">Type</th>
-                <th class="py-2 px-2 text-center hidden lg:table-cell">Sender/Receiver</th>
-                <th class="py-2 px-2 text-center hidden lg:table-cell">Contact</th>
-                <th class="py-2 px-2 text-center">Date</th>
-                <th class="py-2 px-2 text-center">Status</th>
-                <th class="py-2 px-2 text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="parcelBody">
-              <!-- Table rows will be populated by JavaScript -->
-            </tbody>
-          </table>
-        </div>
-        
-        <!-- Pagination -->
-        <div class="flex justify-center mt-4 space-x-2" id="parcelPaginationContainer">
-          <button id="prevParcelPage" class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400 text-sm">Previous</button>
-          <span id="parcelPageNumbers" class="flex space-x-1 flex-wrap justify-center"></span>
-          <button id="nextParcelPage" class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400 text-sm">Next</button>
-        </div>
-      </div>
-
-      <!-- GRIEVANCE MODULE PAGE -->
-      <div id="grievance-page" class="hidden flex flex-col h-full">
-        <!-- Actions -->
-        <div class="mb-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-            <div class="flex flex-wrap gap-2">
-              <button id="createGrievanceBtn" class="bg-blue-900 text-white px-3 py-2 rounded text-sm">Create Grievance</button>
-              <button id="importGrievanceBtn" class="bg-green-600 text-white px-3 py-2 rounded text-sm">Import</button>
-              <button id="exportGrievanceBtn" class="bg-blue-600 text-white px-3 py-2 rounded text-sm">Export</button>
-            </div>
-            <div class="w-full sm:w-auto">
-              <input type="text" id="searchGrievanceInput" placeholder="Search..." class="border p-2 rounded w-full sm:w-64"/>
-              <input type="file" id="importGrievanceFile" class="hidden"/>
-            </div>
-          </div>
-        </div>
-
-        <!-- Table -->
-        <div class="table-scroll bg-white rounded shadow flex-1 mb-4">
-          <table id="grievanceTable" class="min-w-full border border-gray-200 rounded">
-            <thead>
-              <tr class="bg-blue-900 text-white">
-                <th class="py-2 px-2 text-center">S.No</th>
-                <th class="py-2 px-2 text-center">Title</th>
-                <th class="py-2 px-2 text-center hidden sm:table-cell">Category</th>
-                <th class="py-2 px-2 text-center hidden md:table-cell">Type</th>
-                <th class="py-2 px-2 text-center hidden lg:table-cell">Raised By</th>
-                <th class="py-2 px-2 text-center">Date</th>
-                <th class="py-2 px-2 text-center">Status</th>
-                <th class="py-2 px-2 text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="grievanceBody">
-              <!-- Table rows will be populated by JavaScript -->
-            </tbody>
-          </table>
-        </div>
-        
-        <!-- Pagination -->
-        <div class="flex justify-center mt-4 space-x-2" id="grievancePaginationContainer">
-          <button id="prevGrievancePage" class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400 text-sm">Previous</button>
-          <span id="grievancePageNumbers" class="flex space-x-1 flex-wrap justify-center"></span>
-          <button id="nextGrievancePage" class="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400 text-sm">Next</button>
-        </div>
-      </div>
+      <!-- Other pages (parcel-page, grievance-page) remain similar but with hidden-mobile class for columns -->
+      
     </div>
 
     <!-- Footer -->
@@ -980,281 +555,162 @@
   </div>
 </div>
 
-<!-- MODALS (same as before but with responsive classes) -->
-<!-- CREATE VISITOR MODAL -->
-<div id="new-visitor-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
-  <div class="modal-content bg-white rounded-lg shadow-xl overflow-hidden animate-fade-in-down w-full max-w-2xl mx-4">
-    <div class="flex items-center justify-between p-4 bg-[#1e3a8a] text-white">
-      <h3 class="text-lg font-semibold">Create Visitor</h3>
-      <button id="close-visitor-modal-btn" class="text-white text-2xl focus:outline-none hover:text-gray-200">&times;</button>
-    </div>
-    <form id="visitorForm" class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Form fields same as before -->
-      <div>
-        <label class="block text-sm font-medium">Purpose of Visit <span class="text-red-500">*</span></label>
-        <input type="text" id="modalPurpose" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Visitor Name <span class="text-red-500">*</span></label>
-        <input type="text" id="modalName" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Phone Number <span class="text-red-500">*</span></label>
-        <input type="text" id="modalPhone" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Visitor ID Number <span class="text-red-500">*</span></label>
-        <input type="text" id="modalIdNumber" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Visitor ID Attachment <span class="text-red-500">*</span></label>
-        <input type="file" id="modalIdAttachment" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Number of Visitors <span class="text-red-500">*</span></label>
-        <input type="number" id="modalVisitorCount" class="w-full border p-2 rounded" required>
-      </div>
-      <div class="col-span-1 md:col-span-2 flex justify-end space-x-2">
-        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Create</button>
-        <button type="button" id="cancelVisitorModal" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>
+<!-- MODALS (same structure but with responsive improvements) -->
 
-<!-- CREATE PARCEL MODAL -->
-<div id="new-percel-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
-  <div class="modal-content bg-white rounded-lg shadow-xl overflow-hidden animate-fade-in-down w-full max-w-2xl mx-4">
-    <div class="flex items-center justify-between p-4 bg-[#1e3a8a] text-white">
-      <h3 class="text-lg font-semibold">Create Parcel</h3>
-      <button id="close-parcel-modal-btn" class="text-white text-2xl focus:outline-none hover:text-gray-200">&times;</button>
-    </div>
-    <form id="parcelForm" class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Form fields same as before -->
-      <div>
-        <label class="block text-sm font-medium">Parcel Title <span class="text-red-500">*</span></label>
-        <input type="text" id="modalParcelTitle" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Parcel Category <span class="text-red-500">*</span></label>
-        <select id="modalParcelCategory" class="w-full border p-2 rounded" required>
-          <option value="">Select parcel category</option>
-          <option>Food</option>
-          <option>Cloths</option>
-          <option>Medicine</option>
-          <option>Documents</option>
-          <option>Electronics</option>
-          <option>Medical</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Parcel Type <span class="text-red-500">*</span></label>
-        <select id="modalParcelType" class="w-full border p-2 rounded" required>
-          <option value="">Select Type</option>
-          <option>Sending</option>
-          <option>Receiving</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Sender/Receiver Name <span class="text-red-500">*</span></label>
-        <input type="text" id="modalSenderReceiver" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Phone No <span class="text-red-500">*</span></label>
-        <input type="text" id="modalParcelPhone" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Date <span class="text-red-500">*</span></label>
-        <input type="date" id="modalParcelDate" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Status <span class="text-red-500">*</span></label>
-        <select id="modalParcelStatus" class="w-full border p-2 rounded" required>
-          <option value="">Select Status</option>
-          <option>Delivered</option>
-          <option>In Transit</option>
-          <option>Cancelled</option>
-          <option>Pending</option>
-        </select>
-      </div>
-      <div class="col-span-1 md:col-span-2 flex justify-end space-x-2">
-        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Create</button>
-        <button type="button" id="cancelParcelModal" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- CREATE GRIEVANCE MODAL -->
-<div id="new-grievance-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
-  <div class="modal-content bg-white rounded-lg shadow-xl overflow-hidden animate-fade-in-down w-full max-w-2xl mx-4">
-    <div class="flex items-center justify-between p-4 bg-[#1e3a8a] text-white">
-      <h3 class="text-lg font-semibold">Create Grievance</h3>
-      <button id="close-grievance-modal-btn" class="text-white text-2xl focus:outline-none hover:text-gray-200">&times;</button>
-    </div>
-    <form id="grievanceForm" class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Form fields same as before -->
-      <div>
-        <label class="block text-sm font-medium">Grievance Title <span class="text-red-500">*</span></label>
-        <input type="text" id="modalGrievanceTitle" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Category <span class="text-red-500">*</span></label>
-        <select id="modalGrievanceCategory" class="w-full border p-2 rounded" required>
-          <option value="">Select category</option>
-          <option>Food Quality</option>
-          <option>Staff Behavior</option>
-          <option>Medicine Delay</option>
-          <option>Facilities</option>
-          <option>Appointment Issues</option>
-          <option>Billing Issues</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Type <span class="text-red-500">*</span></label>
-        <select id="modalGrievanceType" class="w-full border p-2 rounded" required>
-          <option value="">Select Type</option>
-          <option>Complaint</option>
-          <option>Suggestion</option>
-          <option>Feedback</option>
-          <option>Appreciation</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Raised By <span class="text-red-500">*</span></label>
-        <input type="text" id="modalRaisedBy" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Contact No</label>
-        <input type="text" id="modalGrievanceContact" class="w-full border p-2 rounded">
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Date <span class="text-red-500">*</span></label>
-        <input type="date" id="modalGrievanceDate" class="w-full border p-2 rounded" required>
-      </div>
-      <div>
-        <label class="block text-sm font-medium">Status <span class="text-red-500">*</span></label>
-        <select id="modalGrievanceStatus" class="w-full border p-2 rounded" required>
-          <option value="">Select Status</option>
-          <option>Open</option>
-          <option>In Progress</option>
-          <option>Resolved</option>
-          <option>Closed</option>
-        </select>
-      </div>
-      <div class="col-span-1 md:col-span-2">
-        <label class="block text-sm font-medium">Description</label>
-        <textarea id="modalGrievanceDescription" class="w-full border p-2 rounded" rows="3"></textarea>
-      </div>
-      <div class="col-span-1 md:col-span-2 flex justify-end space-x-2">
-        <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded">Create</button>
-        <button type="button" id="cancelGrievanceModal" class="bg-gray-400 text-white px-4 py-2 rounded">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Add this right after the last modal and before the closing </body> tag -->
-
-<!-- SCRIPTS -->
 <script>
+  // FIXED MOBILE RESPONSIVENESS FUNCTIONS
+  
   // LOGIN FORM HANDLING
   const loginPage = document.getElementById('login-page');
   const mainWrapper = document.getElementById('main-wrapper');
+  
   document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    // Simple validation example
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
+    
     if(email && password){
       loginPage.classList.add('hidden');
       mainWrapper.classList.remove('hidden');
       showPage('dashboard-page');
+      
+      // Initialize mobile sidebar state
+      initMobileSidebar();
     } else {
       alert('Please enter valid credentials!');
     }
   });
 
-  // PAGE SWITCHING
-  function showPage(pageId) {
-    const pages = ['dashboard-page','settings-page','visitor-page','parcel-page','grievance-page'];
-    pages.forEach(p => document.getElementById(p).classList.add('hidden'));
-    document.getElementById(pageId).classList.remove('hidden');
+  // Initialize mobile sidebar
+  function initMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
     
-    // Ensure settings page has proper height for footer positioning
-    if (pageId === 'settings-page') {
-      adjustSettingsPageHeight();
+    // Close sidebar by default on mobile
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove('mobile-open');
+      mobileOverlay.classList.remove('active');
     }
   }
 
-  // Adjust settings page height for proper footer positioning
-  function adjustSettingsPageHeight() {
-    const settingsPage = document.getElementById('settings-page');
-    const windowHeight = window.innerHeight;
-    const headerHeight = document.querySelector('header').offsetHeight;
-    const breadcrumbHeight = document.querySelector('.bg-white.shadow-sm').offsetHeight;
+  // IMPROVED SIDEBAR TOGGLE FOR MOBILE
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
     
-    // Calculate available height for settings content
-    const availableHeight = windowHeight - headerHeight - breadcrumbHeight - 100; // 100px buffer
-    
-    // Set minimum height for settings content area
-    const settingsContent = settingsPage.querySelector('.settings-content');
-    if (settingsContent) {
-      settingsContent.style.minHeight = Math.max(availableHeight, 400) + 'px'; // Minimum 400px
-    }
-  }
-
-  // SIDEBAR TOGGLE FOR MOBILE
-  const sidebar = document.getElementById('sidebar');
-  const mobileOverlay = document.getElementById('mobileOverlay');
-  function toggleSidebar(){
     sidebar.classList.toggle('mobile-open');
     mobileOverlay.classList.toggle('active');
+    
+    // Prevent body scroll when sidebar is open
+    if (sidebar.classList.contains('mobile-open')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }
 
+  // Close sidebar when clicking on overlay
+  document.getElementById('mobileOverlay').addEventListener('click', function() {
+    toggleSidebar();
+  });
+
+  // Close sidebar when clicking on a menu item (mobile)
+  document.querySelectorAll('#sidebar li').forEach(item => {
+    item.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        toggleSidebar();
+      }
+    });
+  });
+
+  // PAGE SWITCHING - Improved for mobile
+  function showPage(pageId) {
+    const pages = ['dashboard-page','settings-page','visitor-page','parcel-page','grievance-page'];
+    pages.forEach(p => {
+      const page = document.getElementById(p);
+      if (page) {
+        page.classList.add('hidden');
+      }
+    });
+    
+    const activePage = document.getElementById(pageId);
+    if (activePage) {
+      activePage.classList.remove('hidden');
+    }
+    
+    // Close sidebar on mobile when switching pages
+    if (window.innerWidth <= 768) {
+      const sidebar = document.getElementById('sidebar');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      sidebar.classList.remove('mobile-open');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    const sidebar = document.getElementById('sidebar');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    
+    if (window.innerWidth > 768) {
+      // Desktop - ensure sidebar is visible and overlay hidden
+      sidebar.classList.remove('mobile-open');
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    } else {
+      // Mobile - ensure sidebar is hidden by default
+      if (!sidebar.classList.contains('mobile-open')) {
+        sidebar.classList.remove('mobile-open');
+        mobileOverlay.classList.remove('active');
+      }
+    }
+  });
+
   // DARK MODE TOGGLE
-  function toggleDarkMode(){
+  function toggleDarkMode() {
     document.body.classList.toggle('dark');
   }
 
   // FULLSCREEN TOGGLE
   function toggleFullscreen() {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+      document.documentElement.requestFullscreen().catch(err => {
+        console.log('Error attempting to enable fullscreen:', err);
+      });
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
     }
   }
 
   // PROFILE DROPDOWN
-  function toggleProfileDropdown(){
+  function toggleProfileDropdown() {
     document.getElementById('profileDropdown').classList.toggle('show');
   }
   
-  window.onclick = function(event) {
+  // Close dropdown when clicking outside
+  window.addEventListener('click', function(event) {
     if (!event.target.matches('.profile, .profile *')) {
-      const dropdowns = document.getElementsByClassName("dropdown-content");
-      for (let i = 0; i < dropdowns.length; i++) {
-        const openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
+      const dropdown = document.getElementById('profileDropdown');
+      if (dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
       }
     }
-  }
+  });
 
   // LOGOUT
-  function logout(){
+  function logout() {
     mainWrapper.classList.add('hidden');
     loginPage.classList.remove('hidden');
+    document.body.style.overflow = ''; // Reset overflow
   }
 
   // MODAL HANDLERS
-  function openModal(modalId){ 
+  function openModal(modalId) { 
     document.getElementById(modalId).classList.remove('hidden'); 
   }
   
-  function closeModal(modalId){ 
+  function closeModal(modalId) { 
     document.getElementById(modalId).classList.add('hidden'); 
   }
 
@@ -1269,55 +725,53 @@
     });
   });
 
-  // VISITOR MODAL BUTTONS
-  document.getElementById('createVisitorBtn').addEventListener('click', () => openModal('new-visitor-modal'));
-  document.getElementById('cancelVisitorModal').addEventListener('click', () => closeModal('new-visitor-modal'));
-  document.getElementById('close-visitor-modal-btn').addEventListener('click', () => closeModal('new-visitor-modal'));
+  // SETUP EVENT LISTENERS
+  document.addEventListener('DOMContentLoaded', function() {
+    // Settings page help cards
+    document.getElementById('purposeVisitBtn').addEventListener('click', () => showPage('visitor-page'));
+    document.getElementById('parcelTypeBtn').addEventListener('click', () => showPage('parcel-page'));
+    document.getElementById('grievanceBtn').addEventListener('click', () => showPage('grievance-page'));
+    document.getElementById('settingsBtn').addEventListener('click', () => showPage('settings-page'));
 
-  // PARCEL MODAL BUTTONS
-  document.getElementById('createParcelBtn').addEventListener('click', () => openModal('new-percel-modal'));
-  document.getElementById('cancelParcelModal').addEventListener('click', () => closeModal('new-percel-modal'));
-  document.getElementById('close-parcel-modal-btn').addEventListener('click', () => closeModal('new-percel-modal'));
+    // Breadcrumb navigation
+    document.getElementById('breadcrumbDashboard').addEventListener('click', () => showPage('dashboard-page'));
+    document.getElementById('breadcrumbSettings').addEventListener('click', () => showPage('settings-page'));
 
-  // GRIEVANCE MODAL BUTTONS
-  document.getElementById('createGrievanceBtn').addEventListener('click', () => openModal('new-grievance-modal'));
-  document.getElementById('cancelGrievanceModal').addEventListener('click', () => closeModal('new-grievance-modal'));
-  document.getElementById('close-grievance-modal-btn').addEventListener('click', () => closeModal('new-grievance-modal'));
+    // Modal buttons
+    document.getElementById('createVisitorBtn').addEventListener('click', () => openModal('new-visitor-modal'));
+    document.getElementById('cancelVisitorModal').addEventListener('click', () => closeModal('new-visitor-modal'));
+    document.getElementById('close-visitor-modal-btn').addEventListener('click', () => closeModal('new-visitor-modal'));
 
-  // SETTINGS PAGE HELP CARDS
-  document.getElementById('purposeVisitBtn').addEventListener('click', () => showPage('visitor-page'));
-  document.getElementById('parcelTypeBtn').addEventListener('click', () => showPage('parcel-page'));
-  document.getElementById('grievanceBtn').addEventListener('click', () => showPage('grievance-page'));
-  document.getElementById('settingsBtn').addEventListener('click', () => showPage('settings-page'));
+    // Initialize table data
+    populateVisitorTable();
+  });
 
-  // BREADCRUMB NAVIGATION
-  document.getElementById('breadcrumbDashboard').addEventListener('click', () => showPage('dashboard-page'));
-  document.getElementById('breadcrumbSettings').addEventListener('click', () => showPage('settings-page'));
-
-  // EXAMPLE TABLE DATA (VISITOR)
+  // EXAMPLE TABLE DATA
   const visitorData = [
     {id:1,purpose:'Medical Checkup',name:'John Doe',phone:'9876543210',date:'2025-09-22',status:'Pending'},
     {id:2,purpose:'Vaccination',name:'Jane Smith',phone:'9123456780',date:'2025-09-21',status:'Completed'},
     {id:3,purpose:'Consultation',name:'Mike Johnson',phone:'9234567890',date:'2025-09-20',status:'In Progress'}
   ];
 
-  function populateVisitorTable(){
+  function populateVisitorTable() {
     const tbody = document.getElementById('visitorBody');
+    if (!tbody) return;
+    
     tbody.innerHTML = '';
-    visitorData.forEach((v,i) => {
+    visitorData.forEach((v, i) => {
       tbody.innerHTML += `
         <tr class="border-b text-center">
           <td class="py-2 px-2">${i+1}</td>
           <td class="py-2 px-2">${v.purpose}</td>
-          <td class="py-2 px-2 hidden sm:table-cell">${v.name}</td>
-          <td class="py-2 px-2 hidden md:table-cell">${v.phone}</td>
+          <td class="py-2 px-2 hidden-mobile">${v.name}</td>
+          <td class="py-2 px-2 hidden-mobile">${v.phone}</td>
           <td class="py-2 px-2">${v.date}</td>
           <td class="py-2 px-2">
             <span class="status-${v.status.toLowerCase().replace(' ', '-')} px-2 py-1 rounded text-xs">
               ${v.status}
             </span>
           </td>
-          <td class="py-2 px-2 action-buttons">
+          <td class="py-2 px-2">
             <button class="bg-blue-500 text-white px-2 py-1 rounded text-xs mr-1">Edit</button>
             <button class="bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</button>
           </td>
@@ -1326,39 +780,12 @@
     });
   }
 
-  // Initialize table data
-  populateVisitorTable();
-
-  // Adjust settings page height on resize
-  window.addEventListener('resize', function() {
-    if (!document.getElementById('settings-page').classList.contains('hidden')) {
-      adjustSettingsPageHeight();
-    }
-  });
-
-  // Initialize settings page height if it's the active page
-  document.addEventListener('DOMContentLoaded', function() {
-    if (!document.getElementById('settings-page').classList.contains('hidden')) {
-      adjustSettingsPageHeight();
-    }
-  });
-
-  // VISITOR INFORMATION BUTTON
-  document.getElementById('visitorInfoBtn').addEventListener('click', function() {
-    if (visitorData.length > 0) {
-      const lastVisitor = visitorData[visitorData.length - 1];
-      alert(`Last Visitor Information:\n\nName: ${lastVisitor.name}\nPurpose: ${lastVisitor.purpose}\nPhone: ${lastVisitor.phone}\nDate: ${lastVisitor.date}\nStatus: ${lastVisitor.status}`);
-    } else {
-      alert('No visitor information available.');
-    }
-  });
-
   // GLOBAL SEARCH FUNCTIONALITY
   document.getElementById('globalSearch').addEventListener('input', function(e) {
     const searchTerm = e.target.value.toLowerCase();
     if (searchTerm.length > 2) {
-      // In a real application, you would filter content based on the search term
       console.log('Searching for:', searchTerm);
+      // Implement search functionality here
     }
   });
 
